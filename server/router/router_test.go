@@ -1,10 +1,10 @@
-package web
+package router
 
 import (
 	"errors"
+	"mygoForum/model"
 	"net/http"
 	"net/http/httptest"
-	"mygoForum/model"
 	"testing"
 )
 

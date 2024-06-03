@@ -1,18 +1,18 @@
-package web
+package router
 
 import (
 	"encoding/json"
 	"log"
+	"mygoForum/database"
 	"net/http"
-	"mygoForum/db"
 )
 
 type App struct {
-	d        db.DB
+	d        database.DB
 	handlers map[string]http.HandlerFunc
 }
 
-func NewApp(d db.DB, cors bool) App {
+func NewApp(d database.DB, cors bool) App {
 	app := App{
 		d:        d,
 		handlers: make(map[string]http.HandlerFunc),

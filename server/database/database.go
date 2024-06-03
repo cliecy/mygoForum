@@ -1,8 +1,8 @@
-package db
+package database
 
 import (
-	"mygoForum/model"
 	"database/sql"
+	"mygoForum/model"
 )
 
 type DB interface {
