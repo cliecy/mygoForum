@@ -4,6 +4,7 @@ import Logo from './Logo';
 import {Tech} from "./tech/Tech";
 
 export function App() {
+    console.log("HELLO")
     return (
         <div className="app">
             <h2 className="title">mygoForum</h2>
