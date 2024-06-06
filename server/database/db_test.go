@@ -1,5 +1,10 @@
 package database
 
+import (
+	"fmt"
+	"testing"
+)
+
 /*
 func TestCreate(t *testing.T) {
 	var crud CRUD[Post] = PostCRUD{}
@@ -53,7 +58,6 @@ func TestUpdateByObject(t *testing.T) {
 }
 */
 
-/*
 func TestFindAll(t *testing.T) {
 	var op CRUD[Post] = PostCRUD{}
 	res, err := op.FindAll()
@@ -63,4 +67,3 @@ func TestFindAll(t *testing.T) {
 	}
 	fmt.Println(res)
 }
-*/
