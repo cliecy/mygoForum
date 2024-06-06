@@ -1,3 +1,3 @@
-package database
+package db
 
 type User struct{}

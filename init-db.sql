@@ -9,5 +9,5 @@ insert into technologies values (
   'JavaScript', 'A lightweight, interpreted, or just-in-time compiled programming language with first-class functions.'
 );
 insert into technologies values (
-  'PostgreSQL', 'A powerful, open source object-relational database system'
+  'PostgreSQL', 'A powerful, open source object-relational db system'
 );

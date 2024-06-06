@@ -17,4 +17,4 @@ services:
       POSTGRES_USER: goxygen
       POSTGRES_DB: goxygen
     volumes:
-      - ./init-database.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init.sql
