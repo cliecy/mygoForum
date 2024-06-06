@@ -1,36 +1,42 @@
 package database
 
 import (
-	"database/sql"
-	"mygoForum/model"
+	"fmt"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+	"sync"
 )
 
-type DB interface {
-	GetTechnologies() ([]*model.Technology, error)
+type DBConfig struct {
+	Host     string
+	Port     int
+	User     string
+	Password string
+	DBName   string
+	SSLMode  string
+	TimeZone string
 }
 
-type PostgresDB struct {
-	db *sql.DB
-}
+var (
+	dbInstance *gorm.DB
+	dbOnce     sync.Once
+	dbErr      error
+)
 
-func NewDB(db *sql.DB) DB {
-	return PostgresDB{db: db}
-}
-
-func (d PostgresDB) GetTechnologies() ([]*model.Technology, error) {
-	rows, err := d.db.Query("select name, details from technologies")
-	if err != nil {
-		return nil, err
+func GetDatabaseInstance() (*gorm.DB, error) {
+	Config := DBConfig{
+		Host:     "localhost",
+		Port:     5432,
+		User:     "apple",
+		Password: "123456",
+		DBName:   "postgres",
+		SSLMode:  "disable",
+		TimeZone: "Asia/Tokyo",
 	}
-	defer rows.Close()
-	var tech []*model.Technology
-	for rows.Next() {
-		t := new(model.Technology)
-		err = rows.Scan(&t.Name, &t.Details)
-		if err != nil {
-			return nil, err
-		}
-		tech = append(tech, t)
-	}
-	return tech, nil
+	dbOnce.Do(func() {
+		dsn := fmt.Sprintf("host=%v user=%v password=%v dbname=%v port=%v sslmode=%v TimeZone=%v",
+			Config.Host, Config.User, Config.Password, Config.DBName, Config.Port, Config.SSLMode, Config.TimeZone)
+		dbInstance, dbErr = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	})
+	return dbInstance, dbErr
 }
