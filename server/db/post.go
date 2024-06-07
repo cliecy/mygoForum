@@ -25,12 +25,12 @@ func (crud PostCRUD) CreateByObject(p *Post) error {
 		return err
 	}
 
-	if p != nil {
-		result := db.Create(p)
-		return result.Error
-	} else {
+	if p == nil {
 		return errors.New("post is nil")
 	}
+	result := db.Create(p)
+	return result.Error
+
 }
 
 func (crud PostCRUD) FindById(id uint) (*Post, error) {

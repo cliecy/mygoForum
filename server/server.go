@@ -10,6 +10,7 @@ func main() {
 	r := gin.Default()
 
 	r.GET("/", router.GetAllPosts)
+	r.GET("/:PostId", router.GetAllReplies)
 
 	r.Run(":8000")
 }
