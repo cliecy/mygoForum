@@ -12,7 +12,7 @@ type Reply struct {
 	Author      string `gorm:"not null"`
 	Content     string `gorm:"type:text;not null"`
 	Floor       uint   `gorm:"not null"`
-	ReplyTo     uint   `gorm:"not null"`
+	ReplyTo     uint   `gorm:"default:null"`
 	IsInvisible bool   `gorm:"default:False"`
 	IsDeleted   bool   `gorm:"default:false"`
 }
@@ -73,4 +73,19 @@ func (re ReplyCRUD) FindAll() ([]Reply, error) {
 	var res []Reply
 	result := db.Find(&res)
 	return res, result.Error
+}
+
+func (re ReplyCRUD) FindAllByPostId(postId uint) ([]Reply, error) {
+	db, err := GetDatabaseInstance()
+	if err != nil {
+		return nil, err
+	}
+
+	var res []Reply
+	result := db.Where("PostId = ?", postId).Find(&res)
+	return res, result.Error
+}
+
+func (re ReplyCRUD) FindAllByUserId(uint) ([]Reply, error) {
+	return nil, nil
 }
