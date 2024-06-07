@@ -65,9 +65,21 @@ func TestFindAll(t *testing.T) {
 }
 */
 
+/*
 func TestFindAllReply(t *testing.T) {
 	var op = ReplyCRUD{}
 	res, err := op.FindAll()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(res)
+}
+*/
+
+func TestFindAllReplyByPostId(t *testing.T) {
+	var op = ReplyCRUD{}
+	res, err := op.FindAllByPostId(1)
 	if err != nil {
 		fmt.Println(err)
 		return
