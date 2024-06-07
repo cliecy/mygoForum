@@ -6,19 +6,15 @@ import (
 )
 
 /*
-func TestCreate(t *testing.T) {
-	var crud CRUD[Post] = PostCRUD{}
+func TestCreateReply(t *testing.T) {
+	var crud = ReplyCRUD{}
 	db, _ := GetDatabaseInstance()
-	db.AutoMigrate(&Post{})
-	p := &Post{
-		Title:       "Hello, world",
-		AuthorName:  "apple",
-		Content:     "123456",
-		Floor:       1,
-		IsLocked:    false,
-		IsDeleted:   false,
-		IsTop:       false,
-		IsInvisible: false,
+	db.AutoMigrate(&Reply{})
+	p := &Reply{
+		PostId:  1,
+		Author:  "yamanashi",
+		Content: "hello world",
+		Floor:   2,
 	}
 	var err error
 	if p != nil {
@@ -29,10 +25,9 @@ func TestCreate(t *testing.T) {
 	}
 }
 */
-
 /*
 func TestFindById(t *testing.T) {
-	var crud CRUD[Post] = PostCRUD{}
+	var crud PostCRUD[Post] = PostCRUD{}
 
 	res, _ := crud.FindById(1)
 	fmt.Println(res)
@@ -41,7 +36,7 @@ func TestFindById(t *testing.T) {
 
 /*
 func TestUpdateByObject(t *testing.T) {
-	var crud CRUD[Post] = PostCRUD{}
+	var crud PostCRUD[Post] = PostCRUD{}
 	p := &Post{
 		Title:       "goodbye",
 		AuthorName:  "fuck",
@@ -58,8 +53,20 @@ func TestUpdateByObject(t *testing.T) {
 }
 */
 
+/*
 func TestFindAll(t *testing.T) {
-	var op CRUD[Post] = PostCRUD{}
+	var op = PostCRUD{}
+	res, err := op.FindAll()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(res)
+}
+*/
+
+func TestFindAllReply(t *testing.T) {
+	var op = ReplyCRUD{}
 	res, err := op.FindAll()
 	if err != nil {
 		fmt.Println(err)
