@@ -1,0 +1,31 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "Compund",
+            "dependsOn": [
+                "前端",
+                "后端",
+                // "db"
+            ],
+            "dependsOrder": "parallel",
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "前端",
+            "command": "cd ${workspaceFolder}/webapp;npm run start"
+        },
+        {
+            "type": "shell",
+            "label": "后端",
+            "command": "cd ${workspaceFolder}/server;go run ${workspaceFolder}/server/server.go;"
+        },
+        // {
+        //     "type": "shell",
+        //     "label": "db",
+        //     "command": "docker-compose -f docker-compose-dev.yml up"
+        // }
+    ]
+}

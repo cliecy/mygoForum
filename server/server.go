@@ -1,9 +1,10 @@
 package main
 
 import (
+	"mygoForum/router"
+
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
-	"mygoForum/router"
 )
 
 func main() {
@@ -12,5 +13,5 @@ func main() {
 	r.GET("/", router.GetAllPosts)
 	r.GET("/:PostId", router.GetAllReplies)
 
-	r.Run(":8000")
+	r.Run(":8080")
 }
