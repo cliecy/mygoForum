@@ -9,7 +9,7 @@ type Reply struct {
 	gorm.Model
 	PostId      uint   `gorm:"not null"`
 	Author      string `gorm:"not null"`
-	Content     string `gorm:"type:text;not null"`
+	Content     string `gorm:"type:text; not null"`
 	Floor       uint   `gorm:"not null"`
 	ReplyTo     uint   `gorm:"default:null"`
 	IsInvisible bool   `gorm:"default:False"`
@@ -81,7 +81,7 @@ func (re ReplyCRUD) FindAllByPostId(postId uint) ([]Reply, error) {
 	}
 
 	var res []Reply
-	result := db.Where("PostId = ?", postId).Find(&res)
+	result := db.Where("post_id = ?", postId).Find(&res)
 	return res, result.Error
 }
 
