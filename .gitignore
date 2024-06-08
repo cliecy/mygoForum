@@ -9,3 +9,6 @@
 webapp/node_modules
 webapp/build
 webapp/npm-debug.log*
+.idea/mygoForum.iml
+.idea/vcs.xml
+
