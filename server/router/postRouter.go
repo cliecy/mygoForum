@@ -7,6 +7,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type Data[T any] struct {
+	data    []T
+	page    int
+	success bool
+	total   int
+}
+
 func GetAllPosts(c *gin.Context) {
 	crud := &db.PostCRUD{}
 	result, err := crud.FindAllOrdered()
@@ -41,7 +48,13 @@ func GetAllPosts(c *gin.Context) {
 			IsLocked:      result[i].IsLocked,
 		}
 	}
-	c.JSON(200, posts)
+	data := Data[db.PostGet]{
+		data:    posts,
+		page:    0,
+		success: true,
+		total:   len(result),
+	}
+	c.JSON(200, data)
 	return
 }
 
@@ -90,7 +103,13 @@ func GetAllReplies(c *gin.Context) {
 		}
 	}
 
-	c.JSON(200, replies)
+	data := Data[db.ReplyGet]{
+		data:    replies,
+		page:    0,
+		success: true,
+		total:   len(result),
+	}
+	c.JSON(200, data)
 	return
 }
 

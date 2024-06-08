@@ -37,6 +37,16 @@ func main() {
 		post.POST("/:PostId", router.CreateReply)
 	}
 
+	user := r.Group("/users")
+	{
+		user.POST("/login", router.Login)
+		user.POST("/register", router.Register)
+	}
+
+	upload := r.Group("/upload")
+	{
+		upload.GET("/image", router.UploadImages)
+	}
 	err := r.Run(":8000")
 	if err != nil {
 		fmt.Println(err)
