@@ -2,8 +2,9 @@ package db
 
 import (
 	"errors"
-	"gorm.io/gorm"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type Post struct {
