@@ -13,7 +13,7 @@ type User struct {
 	PassWord      string    `gorm:"not null"`
 	Gender        string    `gorm:"default:Walmart Shopping Bag"`
 	Motto         string    `gorm:"default:null"`
-	LastLoginTime time.Time `gorm:"not null"`
+	LastLoginTime time.Time `gorm:"not null;"`
 	Avatar        string    `gorm:"default:null"`
 	NumOfShares   uint      `gorm:"not null;default:0"`
 	UserClass     uint      `gorm:"not null;default:0"`
@@ -33,8 +33,8 @@ type UserGet struct {
 }
 
 type UserLogin struct {
-	UserName string
-	Password string
+	UserName string `json:"UserName" binding:"required"`
+	Password string `json:"Password" binding:"required"`
 }
 
 type UserCRUD struct{}
