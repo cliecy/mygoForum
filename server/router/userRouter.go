@@ -33,7 +33,6 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"message": "User registered successfully"})
 	temp := make([]db.User, 1)
 	temp[0] = *user
 	data := PostData[db.User]{

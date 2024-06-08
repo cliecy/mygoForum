@@ -11,7 +11,6 @@ export type RegisterFieldType = {
 }
 
 const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-    console.log('Success:', values);
     await RegisterFunc(values)
 
 };

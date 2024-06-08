@@ -148,35 +148,28 @@ export async function GetUserIdByUserName(userName: string): Promise<number> {
 
 export async function RegisterFunc(values: RegisterFieldType): Promise<HTTPStatus> {
     let statusNum: number = 0;
-    const now = new Date();
     let myresponse: MyResponse | undefined;
     try {
-        await axios.post('http://127.0.0.1:8000/users', {
-            UserName: values.userName, motto: "LEO is really excellent", LastLogintime: formatDatefordate(now)
-            , gender: "Male", password: values.password, numofShares: 0
+        await axios.post('http://127.0.0.1:8000/users/register', {
+            UserName: values.userName,PassWord: values.password
         }).then(function (response) {
-            myresponse = response.data.data
+            myresponse = response.data
             console.log(response);
             statusNum = response.status;
         }).catch(function (error) {
             console.log(error);
         });
-        
+        console.log(myresponse)
         if(myresponse !== undefined){
-            if (statusNum === 200) {
                 console.log("Register and Login SUCCESS")
                 if (myresponse.data[0].UserName !== undefined && myresponse.data[0].PassWord !== undefined)
-                    if (values.remember === true) {
-                        console.log(values)
+                    {
                         storageUtils.saveUser({ UserName: myresponse.data[0].UserName, PassWord: myresponse.data[0].PassWord ,UserId:myresponse?.data[0].ID})
                     }
                 window.location.reload()
                 return { status: statusNum }
-            }
-            else {
-                console.log("Register Error")
-                return { status: statusNum }
-            }
+            
+
         }
         else{
             return {status: 0}
@@ -184,7 +177,8 @@ export async function RegisterFunc(values: RegisterFieldType): Promise<HTTPStatu
 
 
     }
-    catch {
+    catch(e) {
+        console.log(e)
         console.log("ERRORS BUT NOT AXIOS ERROR")
         return { status: statusNum }
     }

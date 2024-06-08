@@ -26,7 +26,7 @@ var (
 
 func GetDatabaseInstance() (*gorm.DB, error) {
 	Config := DatabaseConfig{
-		Host:     "db",
+		Host:     "localhost",
 		Port:     5432,
 		User:     "apple",
 		Password: "123456",
