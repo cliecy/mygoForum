@@ -40,7 +40,7 @@ const PostPage: React.FC=() => {
 
     return (
         <>
-        <ReplyList></ReplyList>
+        <ReplyList ShareId={id}></ReplyList>
         <MakeReplyComponent shareid={id}/>
         </>
     );
