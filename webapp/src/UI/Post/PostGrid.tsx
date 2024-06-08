@@ -36,20 +36,20 @@ const PostGrid: React.FC<PostGridProps> = ({ posts, currentPage, pageSize, onPag
     fetchUserData();
 }, [currentPosts]);
   return (
-    <>
-      {postsWithUserData.map((post, index) => (
-        <Row key={index}>
-          <Col span={24}>
-            <NavLink to={`/PostPage/${post.ShareId}`}>{post.Title}</NavLink>
-            <p>{post.PostTime}</p>
-            <p>{post.UserId}</p>
-            <p style={{ fontWeight: 'bold', color: 'red', border: '1px solid black' }}>{post.UserData?.UserName}</p>
-          </Col>
-        </Row>
-      ))}
-      <MPagination total={posts.length} pageSize={pageSize} onPageChange={onPageChange} onShowSizeChange={onShowSizeChange} />
-    </>
-    // <PostList></PostList>
+    // <>
+    //   {postsWithUserData.map((post, index) => (
+    //     <Row key={index}>
+    //       <Col span={24}>
+    //         <NavLink to={`/PostPage/${post.ShareId}`}>{post.Title}</NavLink>
+    //         <p>{post.PostTime}</p>
+    //         <p>{post.UserId}</p>
+    //         <p style={{ fontWeight: 'bold', color: 'red', border: '1px solid black' }}>{post.UserData?.UserName}</p>
+    //       </Col>
+    //     </Row>
+    //   ))}
+    //   <MPagination total={posts.length} pageSize={pageSize} onPageChange={onPageChange} onShowSizeChange={onShowSizeChange} />
+    // </>
+    <PostList></PostList>
   );
 };
 

@@ -5,35 +5,70 @@ export interface Post {
     Title: string;
     PostTime: string;
     IsLocked: boolean;
-    UserData:GetUserType |undefined;
+    UserData: GetUserType | undefined;
 }
 
-export interface MakePostType{
+export interface ReplyGet {
+    ID: number;
+    CreatedTime: string;
+    UpdatedTime: string;
+    PostId: number;
+    AuthorId: number;
+    Content: string;
+    Floor: number;
+    ReplyTo: number;
+}
+
+export interface ReplyRequest {
+    PostId: number
+    AuthorId: number;
+    Content: string;
+    ReplyTo: number;
+}
+
+
+export interface PostGet {
+    ID: number;
+    CreatedTime: string;
+    UpdatedTime: string;
+    Title: string;
+    AuthorId: number;
+    Content: string;
+    Floor: number;
+    IsLocked: string;
+}
+
+export interface PostRequest {
+    Title: string;
+    AuthorId: number;
+    Content:string;
+}
+export interface MakePostType {
     UserId: number;
     Content: string;
     Title: string;
     PostTime: string;
     // IsLocked: boolean;
 }
-export interface Reply{
+export interface Reply {
     Content: string;
-    Floor:number;
-    PostTime:string;
-    ReplyId:number;
-    ReplyTo:number;
-    ShareId:number;
-    UserId:number;
-    UserData:GetUserType | undefined;
+    Floor: number;
+    PostTime: string;
+    ReplyId: number;
+    ReplyTo: number;
+    ShareId: number;
+    UserId: number;
+    UserData: GetUserType | undefined;
 }
 
-export interface MakeReplyType{
+export interface MakeReplyType {
     Content: string;
-    PostTime:string;
-    ShareId:number;
-    UserId:number;
+    PostTime: string;
+    ShareId: number;
+    UserId: number;
 }
 
-export enum gender{
+export enum gender {
     male = 'male',
     female = 'female',
 }
@@ -50,19 +85,19 @@ export interface User {
     lastlogintime: Date;
 }
 
-export interface GetUserType{
-    UserId:number,
-    LastLogintime:string;
-    UserName:string;
+export interface GetUserType {
+    UserId: number,
+    LastLogintime: string;
+    UserName: string;
     gender: string;
     motto: string;
-    numofShares:number;
+    numofShares: number;
 }
-export interface ShareAndReplies{
+export interface ShareAndReplies {
     share: Post[];
     replies: Reply[];
 }
 
-export interface HTTPStatus{
-    status:number;
+export interface HTTPStatus {
+    status: number;
 }

@@ -15,7 +15,7 @@
         {
             "type": "shell",
             "label": "前端",
-            "command": "cd ${workspaceFolder}/webapp;npm run start"
+            "command": "cd ${workspaceFolder}/webapp;npm run start;"
         },
         {
             "type": "shell",
