@@ -1,14 +1,17 @@
 import { ProList } from "@ant-design/pro-components";
-import { Button, Space, Tag } from "antd";
-import urequest from "umi-request";
-import { PostGet } from "../../Lib/typeDefinition";
+import {PostGet, ReplyGet} from "../../Lib/typeDefinition";
+import axios from "axios";
 
 async function GetData(params = {} as Record<string, any>) {
-  return urequest<{
-    data: PostGet[];
-  }>("http://localhost:8000/posts", {
-    params,
-  });
+  try {
+    const response = await axios.get<{ data: PostGet[] }>(`http://localhost:8000/posts`, {
+      params,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error;
+  }
 }
 
 
@@ -28,21 +31,16 @@ const PostList = () => {
       showActions="hover"
       metas={{
         title: {
-          dataIndex: "",
-          title: "用户",
+          dataIndex: "Title",
         },
         avatar: {
-          dataIndex: "avatar",
+          dataIndex: "Avatar",
           search: false,
         },
         description: {
-          dataIndex: "title",
+          dataIndex: "Content",
           search: false,
         },
-        subTitle:{
-          dataIndex:"",
-          search:false,
-        }
       }}
     />
   );
