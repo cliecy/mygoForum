@@ -2,9 +2,10 @@ package db
 
 import (
 	"fmt"
+	"sync"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"sync"
 )
 
 type DatabaseConfig struct {
@@ -25,7 +26,7 @@ var (
 
 func GetDatabaseInstance() (*gorm.DB, error) {
 	Config := DatabaseConfig{
-		Host:     "localhost",
+		Host:     "db",
 		Port:     5432,
 		User:     "apple",
 		Password: "123456",

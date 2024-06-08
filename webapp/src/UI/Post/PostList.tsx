@@ -19,7 +19,7 @@ export async function GetPostData(params = {} as Record<string, any>) {
   console.log("Get Data Once");
   console.log(params);
   const Response = await mrequest<{ data: PostGet[] }>(
-    "http://localhost:8000/posts",
+    "http://127.0.0.1:8000/posts",
     {
       params,
     }

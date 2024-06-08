@@ -6,23 +6,23 @@ import (
 	"time"
 )
 
-// func TestCreatePost(t *testing.T) {
-// 	var crud = PostCRUD{}
-// 	db, _ := GetDatabaseInstance()
-// 	db.AutoMigrate(&Post{})
-// 	p := &Post{
-// 		Title:    "Tessdssssssdt Post",
-// 		AuthorId: 1,
-// 		Content:  "Test Posdassssdsdadasasdst",
-// 	}
-// 	var err error
-// 	if p != nil {
-// 		err = crud.CreateByObject(p)
-// 	}
-// 	if err != nil {
-// 		fmt.Println(err)
-// 	}
-// }
+func TestCreatePost(t *testing.T) {
+	var crud = PostCRUD{}
+	db, _ := GetDatabaseInstance()
+	db.AutoMigrate(&Post{})
+	p := &Post{
+		Title:    "Tessdssssssdt Post",
+		AuthorId: 1,
+		Content:  "Test Posdassssdsdadasasdst",
+	}
+	var err error
+	if p != nil {
+		err = crud.CreateByObject(p)
+	}
+	if err != nil {
+		fmt.Println(err)
+	}
+}
 
 func TestCreateUser(t *testing.T) {
 	var crud = UserCRUD{}
@@ -42,23 +42,23 @@ func TestCreateUser(t *testing.T) {
 	}
 }
 
-//func TestCreateReply(t *testing.T) {
-//	var crud = ReplyCRUD{}
-//	db, _ := GetDatabaseInstance()
-//	db.AutoMigrate(&Reply{})
-//	p := &Reply{
-//		PostId:   1,
-//		AuthorId: 1,
-//		Content:  "hello world",
-//	}
-//	var err error
-//	if p != nil {
-//		err = crud.CreateByObject(p)
-//	}
-//	if err != nil {
-//		fmt.Println(err)
-//	}
-//}
+func TestCreateReply(t *testing.T) {
+	var crud = ReplyCRUD{}
+	db, _ := GetDatabaseInstance()
+	db.AutoMigrate(&Reply{})
+	p := &Reply{
+		PostId:   1,
+		AuthorId: 1,
+		Content:  "hello world",
+	}
+	var err error
+	if p != nil {
+		err = crud.CreateByObject(p)
+	}
+	if err != nil {
+		fmt.Println(err)
+	}
+}
 
 /*
 func TestFindPostById(t *testing.T) {

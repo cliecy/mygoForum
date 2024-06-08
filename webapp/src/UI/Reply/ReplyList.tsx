@@ -9,7 +9,7 @@ var PageShareId:number;
 
 export async function GetReplyData(params = {} as Record<string, any>) {
     const Response = await mrequest<{ data: ReplyGet[] }>(
-      `http://localhost:8000/posts/${PageShareId}`,
+      `http://127.0.0.1:8000/posts/${PageShareId}`,
       {
         params,
       }
