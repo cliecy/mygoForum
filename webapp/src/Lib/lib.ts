@@ -16,7 +16,7 @@ import { RegisterFieldType } from "../Pages/Register";
 export async function MakePost(post: PostRequest): Promise<HTTPStatus> {
     let statusNum: number = 0;
     try {
-        await axios.post("http://127.0.0.1:8000/posts", post)
+        await axios.post("http://34.85.121.30:8000/posts", post)
             .then(function (response) {
                 console.log(response);
                 window.location.reload()
@@ -34,7 +34,7 @@ export async function MakePost(post: PostRequest): Promise<HTTPStatus> {
 export async function MakeReply(reply: ReplyRequest): Promise<HTTPStatus> {
     let statusNum: number = 0;
     try {
-        await axios.post(`http://127.0.0.1:8000/posts/${reply.PostId}`, reply)
+        await axios.post(`http://34.85.121.30:8000/posts/${reply.PostId}`, reply)
             .then(function (response) {
                 console.log(response);
                 window.location.reload()
@@ -67,7 +67,7 @@ export async function LoginFunc(values: FieldType): Promise<HTTPStatus> {
     let myresponse: MyResponse | undefined;
 
     try {
-        await axios.post('http://127.0.0.1:8000/users/login', { UserName: values.userName, PassWord: values.password }).then(function (response) {
+        await axios.post('http://34.85.121.30:8000/users/login', { UserName: values.userName, PassWord: values.password }).then(function (response) {
             myresponse = response.data
         }).catch(function (error) {
             console.log(error);
@@ -138,7 +138,7 @@ export function formatDatefordate(date: Date): string {
 
 export async function GetUserIdByUserName(userName: string): Promise<number> {
     let userId: number = 0;
-    await axios.get(`http://127.0.0.1:8000/users/${userName}`).then(function (response) {
+    await axios.get(`http://34.85.121.30:8000/users/${userName}`).then(function (response) {
         console.log(response.data)
         userId = response.data
     })
@@ -150,7 +150,7 @@ export async function RegisterFunc(values: RegisterFieldType): Promise<HTTPStatu
     let statusNum: number = 0;
     let myresponse: MyResponse | undefined;
     try {
-        await axios.post('http://127.0.0.1:8000/users/register', {
+        await axios.post('http://34.85.121.30:8000/users/register', {
             UserName: values.userName,PassWord: values.password
         }).then(function (response) {
             myresponse = response.data
@@ -197,7 +197,7 @@ export async function GetUserDataById(userId: number): Promise<GetUserType> {
 
     if (userId === 0)
         return result
-    await axios.get(`http://127.0.0.1:8000/user/${userId}`).then(function (response) {
+    await axios.get(`http://34.85.121.30:8000/user/${userId}`).then(function (response) {
         console.log(response.data)
         result = response.data
     })
