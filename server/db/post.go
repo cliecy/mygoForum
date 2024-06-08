@@ -91,7 +91,7 @@ func (crud PostCRUD) FindAllOrdered() ([]Post, error) {
 
 	var top []Post
 	var res []Post
-	topPosts := db.Where("is_top = ?", true).Find(&top)
+	topPosts := db.Where("is_top = ? AND is_invisible = ? AND is_deleted = ?", true, false, false).Find(&top)
 	if topPosts.Error != nil {
 		return nil, topPosts.Error
 	}

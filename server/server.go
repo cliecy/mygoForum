@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"mygoForum/router"
 
 	"github.com/gin-gonic/gin"
@@ -10,8 +11,16 @@ import (
 func main() {
 	r := gin.Default()
 
-	r.GET("/", router.GetAllPosts)
-	r.GET("/:PostId", router.GetAllReplies)
+	post := r.Group("/posts")
+	{
+		post.GET("", router.GetAllPosts)
+		post.GET("/:PostId", router.GetAllReplies)
+		post.POST("", router.CreatePost)
+		post.POST("/:PostId", router.CreateReply)
+	}
 
-	r.Run(":8080")
+	err := r.Run(":8000")
+	if err != nil {
+		fmt.Println(err)
+	}
 }
