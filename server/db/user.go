@@ -101,7 +101,7 @@ func (crud UserCRUD) GetAllUser() ([]User, error) {
 
 }
 
-func (crud PostCRUD) GetAllUserOrdered() ([]User, error) {
+func (crud UserCRUD) GetAllUserOrdered() ([]User, error) {
 	db, err := GetDatabaseInstance()
 	if err != nil {
 		return nil, err

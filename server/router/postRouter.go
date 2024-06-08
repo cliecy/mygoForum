@@ -1,13 +1,14 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
 	"mygoForum/db"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 func GetAllPosts(c *gin.Context) {
-	crud := &db.PostCRUD{}
+	crud := &db.UserCRUD{}
 	result, err := crud.FindAll()
 	if err != nil {
 		c.JSON(500, gin.H{})
