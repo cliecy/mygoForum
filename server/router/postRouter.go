@@ -1,17 +1,18 @@
 package router
 
 import (
+	"fmt"
 	"mygoForum/db"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
-type Data[T any] struct {
-	data    []T
-	page    int
-	success bool
-	total   int
+type PostData[T any] struct {
+	Data    []T  `json:"data"`
+	Page    int  `json:"page"`
+	Success bool `json:"success"`
+	Total   int  `json:"total"`
 }
 
 func GetAllPosts(c *gin.Context) {
@@ -48,12 +49,13 @@ func GetAllPosts(c *gin.Context) {
 			IsLocked:      result[i].IsLocked,
 		}
 	}
-	data := Data[db.PostGet]{
-		data:    posts,
-		page:    0,
-		success: true,
-		total:   len(result),
+	data := PostData[db.PostGet]{
+		Data:    posts,
+		Page:    0,
+		Success: true,
+		Total:   len(result),
 	}
+	fmt.Println(data)
 	c.JSON(200, data)
 	return
 }
@@ -103,11 +105,11 @@ func GetAllReplies(c *gin.Context) {
 		}
 	}
 
-	data := Data[db.ReplyGet]{
-		data:    replies,
-		page:    0,
-		success: true,
-		total:   len(result),
+	data := PostData[db.ReplyGet]{
+		Data:    replies,
+		Page:    0,
+		Success: true,
+		Total:   len(result),
 	}
 	c.JSON(200, data)
 	return
@@ -135,7 +137,7 @@ func CreatePost(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"success": true})
+	c.JSON(200, gin.H{"Success": true})
 	return
 }
 
@@ -159,6 +161,6 @@ func CreateReply(c *gin.Context) {
 		c.JSON(500, gin.H{"error": "Cannot create reply"})
 		return
 	}
-	c.JSON(200, gin.H{"success": true})
+	c.JSON(200, gin.H{"Success": true})
 	return
 }
