@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { ShareAndReplies } from "../Lib/typeDefinition";
 import InnerPostGrid from "../UI/InnerPostGrid";
 import MakeReplyComponent from "../UI/MakeReplyComponent";
+import ReplyList from "../UI/Reply/ReplyList";
 
 const PostPage: React.FC=() => {
     
@@ -39,13 +40,7 @@ const PostPage: React.FC=() => {
 
     return (
         <>
-            <InnerPostGrid 
-                post={posts}
-                currentPage={currentPage}
-                pageSize={pageSize}
-                onPageChange={handlePageChange}
-                onShowSizeChange={handleShowSizeChange}
-        />
+        <ReplyList></ReplyList>
         <MakeReplyComponent shareid={id}/>
         </>
     );
