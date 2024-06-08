@@ -7,7 +7,7 @@ import (
 	"sync"
 )
 
-type DBConfig struct {
+type DatabaseConfig struct {
 	Host     string
 	Port     int
 	User     string
@@ -24,7 +24,7 @@ var (
 )
 
 func GetDatabaseInstance() (*gorm.DB, error) {
-	Config := DBConfig{
+	Config := DatabaseConfig{
 		Host:     "localhost",
 		Port:     5432,
 		User:     "apple",
