@@ -11,13 +11,13 @@ type User struct {
 	gorm.Model
 	UserName      string    `gorm:"unique;not null"`
 	PassWord      string    `gorm:"not null"`
-	Gender        string    `gorm:"not null"`
-	Motto         string    `gorm:"not null"`
+	Gender        string    `gorm:"default:Walmart Shopping Bag"`
+	Motto         string    `gorm:"default:null"`
 	LastLoginTime time.Time `gorm:"not null"`
 	Avatar        string    `gorm:"default:null"`
-	NumOfShares   uint      `gorm:"default:0"`
-	UserClass     uint      `gorm:"default:0"`
-	IsDeleted     bool      `gorm:"default:False"`
+	NumOfShares   uint      `gorm:"not null;default:0"`
+	UserClass     uint      `gorm:"not null;default:0"`
+	IsDeleted     bool      `gorm:"not null;default:False"`
 }
 
 type UserGet struct {
