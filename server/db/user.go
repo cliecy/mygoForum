@@ -17,6 +17,7 @@ type User struct {
 	Avatar        string    `gorm:"default:null"`
 	NumofShares   uint      `gorm:"default:0"`
 	UserClass     uint      `gorm:"default:0"`
+	IsDeleted     bool      `gorm:"default:False"`
 }
 
 type UserGet struct {
@@ -51,5 +52,25 @@ func (crud UserCRUD) CreateByObject(u *User) error {
 		return result.Error
 	}
 
+	return result.Error
+}
+
+func (crud UserCRUD) GetUserByName(name string) (*User, error) {
+	db, err := GetDatabaseInstance()
+	if err != nil {
+		return nil, err
+	}
+
+	var res User
+	result := db.First(&res, name)
+	return &res, result.Error
+}
+
+func (crud UserCRUD) UpdateByObject(u *User) error {
+	db, err := GetDatabaseInstance()
+	if err != nil {
+		return err
+	}
+	result := db.Save(&u)
 	return result.Error
 }
