@@ -15,7 +15,7 @@ type User struct {
 	Motto         string    `gorm:"not null"`
 	LastLoginTime time.Time `gorm:"not null"`
 	Avatar        string    `gorm:"default:null"`
-	NumofShares   uint      `gorm:"default:0"`
+	NumOfShares   uint      `gorm:"default:0"`
 	UserClass     uint      `gorm:"default:0"`
 	IsDeleted     bool      `gorm:"default:False"`
 }
@@ -28,7 +28,7 @@ type UserGet struct {
 	CreatedTime   time.Time
 	LastLoginTime time.Time
 	Avatar        string
-	NumofShares   uint
+	NumOfShares   uint
 	UserClass     uint
 }
 
@@ -87,4 +87,12 @@ func (crud UserCRUD) DeleteUserbyName(name string) error {
 		return err
 	}
 	return nil
+}
+
+func (crud UserCRUD) GetAllUser() ([]User, error) {
+	db, err := crud.GetDatabaseInstance()
+	if err != nil {
+		return nil, err
+	}
+
 }
