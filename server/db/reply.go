@@ -60,8 +60,12 @@ func (crud ReplyCRUD) CreateByObject(r *Reply) error {
 		return err
 	}
 
-	post.Floor++
-	r.Floor = post.Floor
+	if post.Floor > 1 {
+		post.Floor++
+		r.Floor = post.Floor
+	} else {
+		r.Floor = 1
+	}
 
 	err = c.UpdateByObject(post)
 	if err != nil {

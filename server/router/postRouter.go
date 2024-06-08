@@ -16,15 +16,29 @@ func GetAllPosts(c *gin.Context) {
 	}
 	posts := make([]db.PostGet, len(result))
 	for i := range posts {
+		u := &db.UserCRUD{}
+		user, err := u.GetUserById(result[i].AuthorId)
+		if err != nil {
+			c.JSON(500, gin.H{"error": "Cannot Find User"})
+			return
+		}
+
 		posts[i] = db.PostGet{
-			ID:          result[i].ID,
-			CreatedTime: result[i].CreatedAt,
-			UpdatedTime: result[i].UpdatedAt,
-			Title:       result[i].Title,
-			AuthorId:    result[i].AuthorId,
-			Content:     result[i].Content,
-			Floor:       result[i].Floor,
-			IsLocked:    result[i].IsLocked,
+			ID:            result[i].ID,
+			CreatedTime:   result[i].CreatedAt,
+			UpdatedTime:   result[i].UpdatedAt,
+			Title:         result[i].Title,
+			AuthorId:      result[i].AuthorId,
+			AuthorName:    user.UserName,
+			Gender:        user.Gender,
+			Motto:         user.Motto,
+			LastLoginTime: user.LastLoginTime,
+			Avatar:        user.Avatar,
+			NumOfPosts:    user.NumOfShares,
+			UserClass:     user.UserClass,
+			Content:       result[i].Content,
+			Floor:         result[i].Floor,
+			IsLocked:      result[i].IsLocked,
 		}
 	}
 	c.JSON(200, posts)
@@ -50,19 +64,33 @@ func GetAllReplies(c *gin.Context) {
 	}
 	replies := make([]db.ReplyGet, len(result))
 	for i := range replies {
+		u := &db.UserCRUD{}
+		user, err := u.GetUserById(result[i].AuthorId)
+		if err != nil {
+			c.JSON(500, gin.H{"error": "Cannot Find User"})
+			return
+		}
+
 		replies[i] = db.ReplyGet{
-			ID:          result[i].ID,
-			CreatedTime: result[i].CreatedAt,
-			UpdatedTime: result[i].UpdatedAt,
-			PostId:      result[i].PostId,
-			AuthorId:    result[i].AuthorId,
-			Content:     result[i].Content,
-			Floor:       result[i].Floor,
-			ReplyTo:     result[i].ReplyTo,
+			ID:            result[i].ID,
+			CreatedTime:   result[i].CreatedAt,
+			UpdatedTime:   result[i].UpdatedAt,
+			PostId:        result[i].PostId,
+			AuthorId:      result[i].AuthorId,
+			AuthorName:    user.UserName,
+			Gender:        user.Gender,
+			Motto:         user.Motto,
+			LastLoginTime: user.LastLoginTime,
+			Avatar:        user.Avatar,
+			NumOfPosts:    user.NumOfShares,
+			UserClass:     user.UserClass,
+			Content:       result[i].Content,
+			Floor:         result[i].Floor,
+			ReplyTo:       result[i].ReplyTo,
 		}
 	}
 
-	c.JSON(200, result)
+	c.JSON(200, replies)
 	return
 }
 

@@ -23,6 +23,7 @@ type InterfaceOfReplyCRUD interface {
 
 type InterfaceOfUserCRUD interface {
 	CreateByObject(*User) error
+	GetUserById(uint) (*User, error)
 	GetUserByName(string) (*User, error)
 	DeleteUserbyName(string) error
 	GetAllUser() ([]User, error)

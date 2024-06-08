@@ -55,6 +55,17 @@ func (crud UserCRUD) CreateByObject(u *User) error {
 	return result.Error
 }
 
+func (crud UserCRUD) GetUserById(id uint) (*User, error) {
+	db, err := GetDatabaseInstance()
+	if err != nil {
+		return nil, err
+	}
+
+	var res User
+	result := db.First(&res, id)
+	return &res, result.Error
+}
+
 func (crud UserCRUD) GetUserByName(name string) (*User, error) {
 	db, err := GetDatabaseInstance()
 	if err != nil {
