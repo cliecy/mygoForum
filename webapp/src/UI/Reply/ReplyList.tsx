@@ -1,21 +1,29 @@
 import { ProList } from "@ant-design/pro-components";
 import { Button, Space, Tag } from "antd";
 import urequest from "umi-request";
-import { PostGet } from "../../Lib/typeDefinition";
+import {PostGet, ReplyGet} from "../../Lib/typeDefinition";
+import {useEffect} from "react";
+
+var PageShareId:number;
 
 async function GetData(params = {} as Record<string, any>) {
     return urequest<{
-        data: PostGet[];
-    }>("http://localhost:8000/posts", {
+        data: ReplyGet[];
+    }>(`http://localhost:8000/posts/${PageShareId}`, {
         params,
     });
 }
 
+export type ReplyProps = {
+    ShareId:number;
+};
 
-
-const PostList = () => {
+const ReplyList:React.FC<ReplyProps> = ({ShareId}) => {
+    useEffect(() => {
+        PageShareId = ShareId
+    }, [ShareId]);
     return (
-        <ProList<PostGet>
+        <ProList<ReplyGet>
             search={{
                 filterType: "light",
             }}
@@ -48,4 +56,4 @@ const PostList = () => {
     );
 };
 
-export default PostList;
+export default ReplyList;
