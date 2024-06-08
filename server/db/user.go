@@ -74,3 +74,17 @@ func (crud UserCRUD) UpdateByObject(u *User) error {
 	result := db.Save(&u)
 	return result.Error
 }
+
+func (crud UserCRUD) DeleteUserbyName(name string) error {
+	result, err := crud.GetUserByName(name)
+	if err != nil {
+		return err
+	}
+	result.IsDeleted = true
+
+	err = crud.UpdateByObject(result)
+	if err != nil {
+		return err
+	}
+	return nil
+}
