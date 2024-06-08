@@ -2,7 +2,6 @@ package router
 
 import (
 	"mygoForum/db"
-	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -27,7 +26,7 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	c.JSON(201, gin.H{"message": "User registered successfully"})
+	c.JSON(200, gin.H{"message": "User registered successfully"})
 }
 
 func Login(c *gin.Context) {
@@ -40,14 +39,14 @@ func Login(c *gin.Context) {
 
 	user, err := crud.GetUserByName(Login.UserName)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid username or password"})
+		c.JSON(404, gin.H{"error": "Invalid username or password"})
 		return
 	}
 
 	if user.PassWord != Login.Password {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid username or password"})
+		c.JSON(404, gin.H{"error": "Invalid username or password"})
 		return
 	}
 
-	c.JSON(201, gin.H{"message": "Login successful"})
+	c.JSON(200, gin.H{"message": "Login successful"})
 }
