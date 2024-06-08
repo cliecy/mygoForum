@@ -1,6 +1,7 @@
 package db
 
 import (
+	"errors"
 	"time"
 
 	"gorm.io/gorm"
@@ -12,7 +13,6 @@ type User struct {
 	PassWord      string    `gorm:"not null"`
 	Gender        string    `gorm:"not null"`
 	Motto         string    `gorm:"not null"`
-	RegisterTime  time.Time `gorm:"not null"`
 	LastLoginTime time.Time `gorm:"not null"`
 	Avatar        string    `gorm:"default:null"`
 	NumofShares   uint      `gorm:"default:0"`
@@ -20,10 +20,11 @@ type User struct {
 }
 
 type UserGet struct {
+	ID            uint
 	UserName      string
 	Gender        string
 	Motto         string
-	RegisterTime  time.Time
+	CreatedTime   time.Time
 	LastLoginTime time.Time
 	Avatar        string
 	NumofShares   uint
@@ -35,4 +36,20 @@ type UserLogin struct {
 	Password string
 }
 
-type
+type UserCRUD struct{}
+
+func (crud UserCRUD) CreateByObject(u *User) error {
+	db, err := GetDatabaseInstance()
+	if err != nil {
+		return err
+	}
+	if u == nil {
+		return errors.New("User not exists")
+	}
+	result := db.Create(u)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return result.Error
+}
