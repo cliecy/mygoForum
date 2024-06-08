@@ -21,12 +21,30 @@ func Register(c *gin.Context) {
 	}
 
 	err := crud.CreateByObject(&newuser)
+
 	if err != nil {
-		c.JSON(500, gin.H{"err": err.Error()})
+		c.JSON(500, gin.H{"error": "Register failed!"})
+		return
+	}
+
+	user, err := crud.GetUserByName(Register.UserName)
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Register failed!"})
 		return
 	}
 
 	c.JSON(200, gin.H{"message": "User registered successfully"})
+	temp := make([]db.User, 1)
+	temp[0] = *user
+	data := PostData[db.User]{
+		Data:    temp,
+		Page:    0,
+		Success: true,
+		Total:   1,
+	}
+
+	c.JSON(200, data)
+	return
 }
 
 func Login(c *gin.Context) {
@@ -48,5 +66,21 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"message": "Login successful"})
+	user.LastLoginTime = time.Now()
+	err = crud.UpdateByObject(user)
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Database error"})
+	}
+
+	temp := make([]db.User, 1)
+	temp[0] = *user
+	data := PostData[db.User]{
+		Data:    temp,
+		Page:    0,
+		Success: true,
+		Total:   1,
+	}
+
+	c.JSON(200, data)
+	return
 }
