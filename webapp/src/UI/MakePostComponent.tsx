@@ -12,9 +12,9 @@ const mp = async (values: PostFieldType) => {
   let now = new Date()
   let userid:number;
   if(storageUtils.getUser()){
-    userid = await GetUserIdByUserName(storageUtils.getUserName())
+    // userid = await GetUserIdByUserName(storageUtils.getUserName())
     await MakePost(
-      {AuthorId:userid,Content:values.content,Title:values.title}
+      {AuthorId:1,Content:values.content,Title:values.title}
     )
       ;
   }

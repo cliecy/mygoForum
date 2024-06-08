@@ -12,11 +12,11 @@ const mp = async (values: PostFieldType) => {
   let now = new Date()
   let userid:number;
   if(storageUtils.getUser()){
-    userid = await GetUserIdByUserName(storageUtils.getUserName())
+    // userid = await GetUserIdByUserName(storageUtils.getUserName())
     const shareid = localStorage.getItem("currentShareid")
     if(shareid){
       await MakeReply(
-        {AuthorId:userid,Content:values.content,PostId:parseInt(shareid,10),ReplyTo:undefined}
+        {AuthorId:1,Content:values.content,PostId:parseInt(shareid,10),ReplyTo:undefined}
       )
     }
     else{
