@@ -8,7 +8,7 @@ import (
 )
 
 func GetAllPosts(c *gin.Context) {
-	crud := &db.UserCRUD{}
+	crud := &db.PostCRUD{}
 	result, err := crud.FindAll()
 	if err != nil {
 		c.JSON(500, gin.H{})
