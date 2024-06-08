@@ -7,7 +7,14 @@ const PostPage: React.FC=() => {
 
     const params = useParams();
     let id: number
+    let title:string
 
+
+    if (params.title != undefined){
+        title = params.title
+    }else{
+        title = ""
+    }
 
     if (params.id != undefined){
         id=parseInt(params.id,10)
@@ -18,7 +25,7 @@ const PostPage: React.FC=() => {
 
     return (
         <>
-        <ReplyList ShareId={id}></ReplyList>
+        <ReplyList ShareId={id} Title={title}></ReplyList>
         <MakeReplyComponent shareid={id}/>
         </>
     );

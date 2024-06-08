@@ -2,11 +2,11 @@ import React from "react";
 import { Button, Flex, Form, Input, Select } from "antd";
 import storageUtils from "../Lib/storageUtils";
 import { GetUserIdByUserName, MakePost } from "../Lib/lib";
-import { formatDatefordate } from "../Lib/lib";
 export type PostFieldType = {
   content: string;
   title: string;
 };
+
 
 const mp = async (values: PostFieldType) => {
   let now = new Date()

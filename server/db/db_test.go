@@ -5,9 +5,9 @@ package db
 // 	db, _ := GetDatabaseInstance()
 // 	db.AutoMigrate(&Post{})
 // 	p := &Post{
-// 		Title:    "Test Post",
+// 		Title:    "Tessdssssssdt Post",
 // 		AuthorId: 1,
-// 		Content:  "Test Post",
+// 		Content:  "Test Posdassssdsdadasasdst",
 // 	}
 // 	var err error
 // 	if p != nil {

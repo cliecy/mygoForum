@@ -1,8 +1,9 @@
 import { ProList } from "@ant-design/pro-components";
 import { PostGet, ReplyGet } from "../../Lib/typeDefinition";
 import mrequest from "umi-request";
+import { NavLink } from "react-router-dom";
 
-async function GetData(params = {} as Record<string, any>) {
+export async function GetPostData(params = {} as Record<string, any>) {
   console.log("Get Data Once");
   console.log(params);
   const Response = await mrequest<{ data: PostGet[] }>(
@@ -11,10 +12,11 @@ async function GetData(params = {} as Record<string, any>) {
       params,
     }
   );
+  const pageSize: number = params.pageSize;
   const ResponseData = {
     data: Response.data,
     success: true,
-    page: 1,
+    page: Math.ceil(Response.data.length / pageSize),
     total: Response.data.length,
   };
   console.log(ResponseData);
@@ -28,11 +30,14 @@ const PostList = () => {
       }}
       rowKey="name"
       headerTitle="帖子"
-      request={GetData}
+      request={GetPostData}
       showActions="hover"
       metas={{
         title: {
           dataIndex: "Title",
+          render: (_, row) => {
+            return <NavLink to={`/PostPage/${row.ID}/${row.Title}`}>{row.Title}</NavLink>;
+          },
         },
         avatar: {
           dataIndex: "Avatar",
@@ -40,6 +45,10 @@ const PostList = () => {
         },
         description: {
           dataIndex: "Content",
+          search: false,
+        },
+        subTitle: {
+          dataIndex: "AuthorName",
           search: false,
         },
       }}
