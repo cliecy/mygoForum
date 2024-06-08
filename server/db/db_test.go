@@ -14,7 +14,6 @@ func TestCreatePost(t *testing.T) {
 		Title:    "Test Post",
 		AuthorId: 1,
 		Content:  "Test Post",
-		Floor:    2,
 	}
 	var err error
 	if p != nil {
@@ -34,7 +33,6 @@ func TestCreateReply(t *testing.T) {
 		PostId:   1,
 		AuthorId: 1,
 		Content:  "hello world",
-		Floor:    2,
 	}
 	var err error
 	if p != nil {

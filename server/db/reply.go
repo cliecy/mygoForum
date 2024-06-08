@@ -18,14 +18,21 @@ type Reply struct {
 }
 
 type ReplyGet struct {
-	ID          uint
-	CreatedTime time.Time
-	UpdatedTime time.Time
-	PostId      uint
-	AuthorId    uint
-	Content     string
-	Floor       uint
-	ReplyTo     uint
+	ID            uint
+	CreatedTime   time.Time
+	UpdatedTime   time.Time
+	PostId        uint
+	AuthorId      uint
+	AuthorName    string
+	Gender        string
+	Motto         string
+	LastLoginTime time.Time
+	Avatar        string
+	NumOfPosts    uint
+	UserClass     uint
+	Content       string
+	Floor         uint
+	ReplyTo       uint
 }
 
 type ReplyRequest struct {

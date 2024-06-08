@@ -19,14 +19,21 @@ type Post struct {
 }
 
 type PostGet struct {
-	ID          uint
-	CreatedTime time.Time
-	UpdatedTime time.Time
-	Title       string
-	AuthorId    uint
-	Content     string
-	Floor       uint
-	IsLocked    bool
+	ID            uint
+	CreatedTime   time.Time
+	UpdatedTime   time.Time
+	Title         string
+	AuthorId      uint
+	AuthorName    string
+	Gender        string
+	Motto         string
+	LastLoginTime time.Time
+	Avatar        string
+	NumOfPosts    uint
+	UserClass     uint
+	Content       string
+	Floor         uint
+	IsLocked      bool
 }
 
 type PostRequest struct {
