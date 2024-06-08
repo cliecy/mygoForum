@@ -1,5 +1,10 @@
 package db
 
+import (
+	"fmt"
+	"testing"
+)
+
 /*
 func TestCreatePost(t *testing.T) {
 	var crud = PostCRUD{}
@@ -70,7 +75,7 @@ func TestUpdateByObject(t *testing.T) {
 */
 
 /*
-func TestFindAll(t *testing.T) {
+func TestFindAllPost(t *testing.T) {
 	var op = PostCRUD{}
 	res, err := op.FindAll()
 	if err != nil {
@@ -92,7 +97,6 @@ func TestFindAllReply(t *testing.T) {
 }
 */
 
-/*
 func TestFindAllReplyByPostId(t *testing.T) {
 	var op = ReplyCRUD{}
 	res, err := op.FindAllByPostId(1)
@@ -102,4 +106,3 @@ func TestFindAllReplyByPostId(t *testing.T) {
 	}
 	fmt.Println(res)
 }
-*/

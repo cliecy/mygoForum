@@ -33,7 +33,6 @@ type ReplyRequest struct {
 	PostId   uint
 	AuthorId uint
 	Content  string
-	Floor    uint
 	ReplyTo  uint
 }
 
@@ -60,6 +59,16 @@ func (crud ReplyCRUD) CreateByObject(r *Reply) error {
 	err = c.UpdateByObject(post)
 	if err != nil {
 		return err
+	}
+
+	if r.ReplyTo != 0 {
+		res, err := crud.FindById(r.ReplyTo)
+		if err != nil {
+			return err
+		}
+		if res.IsInvisible || res.IsDeleted {
+			return errors.New("reply to is invisible")
+		}
 	}
 
 	result := db.Create(r)
@@ -133,7 +142,7 @@ func (crud ReplyCRUD) FindAllByPostId(postId uint) ([]Reply, error) {
 	}
 
 	var res []Reply
-	result := db.Where("post_id = ?", postId).Find(&res)
+	result := db.Where("post_id = ? AND is_invisible = ?", postId, false).Order("floor").Find(&res)
 	return res, result.Error
 }
 
