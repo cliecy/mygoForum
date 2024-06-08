@@ -34,7 +34,7 @@ export async function MakePost(post: PostRequest): Promise<HTTPStatus> {
 export async function MakeReply(reply: ReplyRequest): Promise<HTTPStatus> {
     let statusNum: number = 0;
     try {
-        await axios.post(`http://127.0.0.1:8000/posts/${reply.PostId}`,reply)
+        await axios.post(`http://127.0.0.1:8000/posts/${reply.PostId}`, reply)
             .then(function (response) {
                 console.log(response);
                 window.location.reload()
@@ -52,31 +52,38 @@ export async function MakeReply(reply: ReplyRequest): Promise<HTTPStatus> {
 }
 
 
-interface LoginStatus {
-    status: string;
-    message: string
+
+interface MyResponse {
+    data:{    UserName: string;
+        PassWord: string;
+        ID: number;}[];
+    page:number;
+    success:boolean;
+    total:number
 }
 
 export async function LoginFunc(values: FieldType): Promise<HTTPStatus> {
     let statusNum: number = 0;
-    let myresponse: LoginStatus = { status: "", message: "" };
+    let myresponse: MyResponse | undefined;
+
     try {
-        await axios.post('http://127.0.0.1:8000/users/login', { UserName: values.userName, password: values.password }).then(function (response) {
-            console.log(response);
+        await axios.post('http://127.0.0.1:8000/users/login', { UserName: values.userName, PassWord: values.password }).then(function (response) {
             myresponse = response.data
-            statusNum = response.status
         }).catch(function (error) {
             console.log(error);
         });
-        if (myresponse.status === "Success") {
-            console.log("LOGIN SUCCESS")
-            if (values.userName !== undefined && values.password !== undefined)
-                if (values.remember === true) {
-                    console.log(values)
-                    storageUtils.saveUser({ username: values.userName, password: values.password })
+
+        if(myresponse !== undefined){
+            if (myresponse.data[0].UserName !== undefined && myresponse.data[0].PassWord !== undefined)
+                {
+                    console.log(myresponse)
+                    storageUtils.saveUser({ UserName:  myresponse.data[0].UserName, PassWord: myresponse.data[0].PassWord ,UserId:myresponse.data[0].ID})
                 }
+       
+                
+    
+            window.location.reload()
         }
-        window.location.reload()
         return { status: statusNum }
     }
     catch {
@@ -142,30 +149,39 @@ export async function GetUserIdByUserName(userName: string): Promise<number> {
 export async function RegisterFunc(values: RegisterFieldType): Promise<HTTPStatus> {
     let statusNum: number = 0;
     const now = new Date();
+    let myresponse: MyResponse | undefined;
     try {
         await axios.post('http://127.0.0.1:8000/users', {
             UserName: values.userName, motto: "LEO is really excellent", LastLogintime: formatDatefordate(now)
             , gender: "Male", password: values.password, numofShares: 0
         }).then(function (response) {
+            myresponse = response.data.data
             console.log(response);
             statusNum = response.status;
         }).catch(function (error) {
             console.log(error);
         });
-        if (statusNum === 200) {
-            console.log("Register and Login SUCCESS")
-            if (values.userName !== undefined && values.password !== undefined)
-                if (values.remember === true) {
-                    console.log(values)
-                    storageUtils.saveUser({ username: values.userName, password: values.password })
-                }
-            window.location.reload()
-            return { status: statusNum }
+        
+        if(myresponse !== undefined){
+            if (statusNum === 200) {
+                console.log("Register and Login SUCCESS")
+                if (myresponse.data[0].UserName !== undefined && myresponse.data[0].PassWord !== undefined)
+                    if (values.remember === true) {
+                        console.log(values)
+                        storageUtils.saveUser({ UserName: myresponse.data[0].UserName, PassWord: myresponse.data[0].PassWord ,UserId:myresponse?.data[0].ID})
+                    }
+                window.location.reload()
+                return { status: statusNum }
+            }
+            else {
+                console.log("Register Error")
+                return { status: statusNum }
+            }
         }
-        else {
-            console.log("Register Error")
-            return { status: statusNum }
+        else{
+            return {status: 0}
         }
+
 
     }
     catch {
@@ -176,20 +192,20 @@ export async function RegisterFunc(values: RegisterFieldType): Promise<HTTPStatu
 
 export async function GetUserDataById(userId: number): Promise<GetUserType> {
 
-    let result:GetUserType = {
-        UserId:-1,
-        LastLogintime:"",
-        UserName:"",
-        gender:"",
-        motto:"",
+    let result: GetUserType = {
+        UserId: -1,
+        LastLogintime: "",
+        UserName: "",
+        gender: "",
+        motto: "",
         numofShares: -1
     }
 
-    if(userId===0)
+    if (userId === 0)
         return result
     await axios.get(`http://127.0.0.1:8000/user/${userId}`).then(function (response) {
         console.log(response.data)
-        result=response.data
+        result = response.data
     })
 
     return result

@@ -10,11 +10,10 @@ export type PostFieldType = {
 
 const mp = async (values: PostFieldType) => {
   let now = new Date()
-  let userid:number;
+  let userid:number = parseInt(storageUtils.getUserId(),10)
   if(storageUtils.getUser()){
-    // userid = await GetUserIdByUserName(storageUtils.getUserName())
     await MakePost(
-      {AuthorId:1,Content:values.content,Title:values.title}
+      {AuthorId:userid,Content:values.content,Title:values.title}
     )
       ;
   }

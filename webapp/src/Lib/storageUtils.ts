@@ -1,17 +1,18 @@
 // ! 本模块主要是进行local数据存储
 
 export interface LoginUser{
-    username:string;
-    password:string;
+    UserName:string;
+    PassWord:string;
+    UserId:number;
 }
 
 
 export default {
     // 保存用户
     saveUser(user:LoginUser) {
-        localStorage.setItem("username",user.username);
-        localStorage.setItem("password",user.password)
-        // console.log(`username:${user.username},password:${user.password}`)
+        localStorage.setItem("username",user.UserName);
+        localStorage.setItem("password",user.PassWord)
+        localStorage.setItem("UserId",user.UserId.toString())
     },
 
     // 读取用户
@@ -34,10 +35,21 @@ export default {
             return "ERROR"
         }
     },
+    getUserId():string{
+        const result = localStorage.getItem("UserId")
+
+        if(result){
+            return result
+        }
+        else{
+            return "ERROR"
+        }
+    },
 
     // 删除用户
     removeUser():void {
         localStorage.setItem("username","")
         localStorage.setItem("password","")
+        localStorage.setItem("UserId","")
     }
 }

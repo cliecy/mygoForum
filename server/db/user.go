@@ -66,6 +66,17 @@ func (crud UserCRUD) GetUserById(id uint) (*User, error) {
 	return &res, result.Error
 }
 
+// func (crud UserCRUD) GetUserByName(name string) (*User, error) {
+// 	db, err := GetDatabaseInstance()
+// 	if err != nil {
+// 		return nil, err
+// 	}
+
+// 	var res User
+// 	result := db.First(&res, name)
+// 	return &res, result.Error
+// }
+
 func (crud UserCRUD) GetUserByName(name string) (*User, error) {
 	db, err := GetDatabaseInstance()
 	if err != nil {
@@ -73,7 +84,8 @@ func (crud UserCRUD) GetUserByName(name string) (*User, error) {
 	}
 
 	var res User
-	result := db.First(&res, name)
+	// 使用 .Where 方法指定列名和查询条件
+	result := db.Where("user_name = ?", name).First(&res)
 	return &res, result.Error
 }
 

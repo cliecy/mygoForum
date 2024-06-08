@@ -1,5 +1,11 @@
 package db
 
+import (
+	"fmt"
+	"testing"
+	"time"
+)
+
 // func TestCreatePost(t *testing.T) {
 // 	var crud = PostCRUD{}
 // 	db, _ := GetDatabaseInstance()
@@ -18,23 +24,23 @@ package db
 // 	}
 // }
 
-// func TestCreateUser(t *testing.T) {
-// 	var crud = UserCRUD{}
-// 	db, _ := GetDatabaseInstance()
-// 	db.AutoMigrate(&User{})
-// 	p := &User{
-// 		UserName:      "leo",
-// 		PassWord:      "123456",
-// 		LastLoginTime: time.Now(),
-// 	}
-// 	var err error
-// 	if p != nil {
-// 		err = crud.CreateByObject(p)
-// 	}
-// 	if err != nil {
-// 		fmt.Println(err)
-// 	}
-// }
+func TestCreateUser(t *testing.T) {
+	var crud = UserCRUD{}
+	db, _ := GetDatabaseInstance()
+	db.AutoMigrate(&User{})
+	p := &User{
+		UserName:      "yamanashi",
+		PassWord:      "123456",
+		LastLoginTime: time.Now(),
+	}
+	var err error
+	if p != nil {
+		err = crud.CreateByObject(p)
+	}
+	if err != nil {
+		fmt.Println(err)
+	}
+}
 
 //func TestCreateReply(t *testing.T) {
 //	var crud = ReplyCRUD{}

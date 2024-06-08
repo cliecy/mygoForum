@@ -3,6 +3,18 @@ import { PostGet, ReplyGet } from "../../Lib/typeDefinition";
 import mrequest from "umi-request";
 import { NavLink } from "react-router-dom";
 
+
+const options: Intl.DateTimeFormatOptions = {
+  year: 'numeric',
+  month: 'numeric', // 使用 'numeric' 或 'long' 根据你的需要
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  hour12: false // 使用 24 小时制，如果想使用 12 小时制可设为 true
+};
+
+
 export async function GetPostData(params = {} as Record<string, any>) {
   console.log("Get Data Once");
   console.log(params);
@@ -49,6 +61,9 @@ const PostList = () => {
         },
         subTitle: {
           dataIndex: "AuthorName",
+          render: (_, row) => {
+            return <>Author:{row.AuthorName},Date:{new Date(row.UpdatedTime).toLocaleString(undefined,options)}</>;
+          },
           search: false,
         },
       }}

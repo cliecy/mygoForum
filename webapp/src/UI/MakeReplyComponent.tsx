@@ -10,13 +10,12 @@ export type PostFieldType = {
 
 const mp = async (values: PostFieldType) => {
   let now = new Date()
-  let userid:number;
+  let userid:number = parseInt(storageUtils.getUserId(),10)
   if(storageUtils.getUser()){
-    // userid = await GetUserIdByUserName(storageUtils.getUserName())
     const shareid = localStorage.getItem("currentShareid")
     if(shareid){
       await MakeReply(
-        {AuthorId:1,Content:values.content,PostId:parseInt(shareid,10),ReplyTo:undefined}
+        {AuthorId:userid,Content:values.content,PostId:parseInt(shareid,10),ReplyTo:undefined}
       )
     }
     else{
