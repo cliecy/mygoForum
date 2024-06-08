@@ -25,4 +25,7 @@ type InterfaceOfUserCRUD interface {
 	CreateByObject(*User) error
 	GetUserByName(string) (*User, error)
 	DeleteUserbyName(string) error
+	GetAllUser() ([]User, error)
+	GetAllUserOrdered() ([]User, error)
+	UpdateByObject(u *User) error
 }

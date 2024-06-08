@@ -100,3 +100,21 @@ func (crud UserCRUD) GetAllUser() ([]User, error) {
 	return res, result.Error
 
 }
+
+func (crud PostCRUD) GetAllUserOrdered() ([]User, error) {
+	db, err := GetDatabaseInstance()
+	if err != nil {
+		return nil, err
+	}
+
+	var top []User
+	var res []User
+	topUsers := db.Where("is_top = ?", true).Find(&top)
+	if topUsers.Error != nil {
+		return nil, topUsers.Error
+	}
+
+	result := db.Order("updated_at desc").Find(&res)
+	res = append(res, top...)
+	return res, result.Error
+}
