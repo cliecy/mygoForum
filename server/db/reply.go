@@ -4,36 +4,73 @@ import (
 	"errors"
 
 	"gorm.io/gorm"
+	"time"
 )
 
 type Reply struct {
 	gorm.Model
 	PostId      uint   `gorm:"not null"`
-	Author      string `gorm:"not null"`
-	Content     string `gorm:"type:text;not null"`
+	AuthorId    uint   `gorm:"not null"`
+	Content     string `gorm:"type:text; not null"`
 	Floor       uint   `gorm:"not null"`
 	ReplyTo     uint   `gorm:"default:null"`
 	IsInvisible bool   `gorm:"default:False"`
 	IsDeleted   bool   `gorm:"default:false"`
 }
 
+type ReplyGet struct {
+	ID          uint
+	CreatedTime time.Time
+	UpdatedTime time.Time
+	PostId      uint
+	AuthorId    uint
+	Content     string
+	Floor       uint
+	ReplyTo     uint
+}
+
+type ReplyRequest struct {
+	PostId   uint
+	AuthorId uint
+	Content  string
+	Floor    uint
+	ReplyTo  uint
+}
+
 type ReplyCRUD struct{}
 
-func (re ReplyCRUD) CreateByObject(r *Reply) error {
+func (crud ReplyCRUD) CreateByObject(r *Reply) error {
 	db, err := GetDatabaseInstance()
 	if err != nil {
 		return err
 	}
-
-	if r != nil {
-		result := db.Create(r)
-		return result.Error
-	} else {
+	if r == nil {
 		return errors.New("post is nil")
 	}
+
+	c := &PostCRUD{}
+	post, err := c.FindById(r.PostId)
+	if err != nil {
+		return err
+	}
+
+	post.Floor++
+	r.Floor = post.Floor
+
+	err = c.UpdateByObject(post)
+	if err != nil {
+		return err
+	}
+
+	result := db.Create(r)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
 }
 
-func (re ReplyCRUD) FindById(id uint) (*Reply, error) {
+func (crud ReplyCRUD) FindById(id uint) (*Reply, error) {
 	db, err := GetDatabaseInstance()
 	if err != nil {
 		return nil, err
@@ -44,7 +81,7 @@ func (re ReplyCRUD) FindById(id uint) (*Reply, error) {
 	return &res, result.Error
 }
 
-func (re ReplyCRUD) UpdateByObject(p *Reply) error {
+func (crud ReplyCRUD) UpdateByObject(p *Reply) error {
 	db, err := GetDatabaseInstance()
 	if err != nil {
 		return err
@@ -54,7 +91,7 @@ func (re ReplyCRUD) UpdateByObject(p *Reply) error {
 	return result.Error
 }
 
-func (re ReplyCRUD) DeleteById(id uint) error {
+func (crud ReplyCRUD) UnsafeDeleteById(id uint) error {
 	db, err := GetDatabaseInstance()
 	if err != nil {
 		return err
@@ -64,7 +101,21 @@ func (re ReplyCRUD) DeleteById(id uint) error {
 	return result.Error
 }
 
-func (re ReplyCRUD) FindAll() ([]Reply, error) {
+func (crud ReplyCRUD) SafeDeleteById(id uint) error {
+	result, err := crud.FindById(id)
+	if err != nil {
+		return err
+	}
+
+	result.IsDeleted = true
+	err = crud.UpdateByObject(result)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (crud ReplyCRUD) FindAll() ([]Reply, error) {
 	db, err := GetDatabaseInstance()
 	if err != nil {
 		return nil, err
@@ -75,17 +126,17 @@ func (re ReplyCRUD) FindAll() ([]Reply, error) {
 	return res, result.Error
 }
 
-func (re ReplyCRUD) FindAllByPostId(postId uint) ([]Reply, error) {
+func (crud ReplyCRUD) FindAllByPostId(postId uint) ([]Reply, error) {
 	db, err := GetDatabaseInstance()
 	if err != nil {
 		return nil, err
 	}
 
 	var res []Reply
-	result := db.Where("PostId = ?", postId).Find(&res)
+	result := db.Where("post_id = ?", postId).Find(&res)
 	return res, result.Error
 }
 
-func (re ReplyCRUD) FindAllByUserId(uint) ([]Reply, error) {
+func (crud ReplyCRUD) FindAllByUserId(uint) ([]Reply, error) {
 	return nil, nil
 }

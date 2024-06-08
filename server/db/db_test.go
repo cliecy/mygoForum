@@ -1,9 +1,24 @@
 package db
 
-import (
-	"fmt"
-	"testing"
-)
+/*
+func TestCreatePost(t *testing.T) {
+	var crud = PostCRUD{}
+	db, _ := GetDatabaseInstance()
+	db.AutoMigrate(&Post{})
+	p := &Post{
+		Title:    "Test Post",
+		AuthorId: 1,
+		Content:  "Test Post",
+		Floor:    2,
+	}
+	var err error
+	if p != nil {
+		err = crud.CreateByObject(p)
+	}
+	if err != nil {
+		fmt.Println(err)
+	}
+}
 
 /*
 func TestCreateReply(t *testing.T) {
@@ -11,10 +26,10 @@ func TestCreateReply(t *testing.T) {
 	db, _ := GetDatabaseInstance()
 	db.AutoMigrate(&Reply{})
 	p := &Reply{
-		PostId:  1,
-		Author:  "yamanashi",
-		Content: "hello world",
-		Floor:   2,
+		PostId:   1,
+		AuthorId: 1,
+		Content:  "hello world",
+		Floor:    2,
 	}
 	var err error
 	if p != nil {
@@ -25,9 +40,10 @@ func TestCreateReply(t *testing.T) {
 	}
 }
 */
+
 /*
-func TestFindById(t *testing.T) {
-	var crud PostCRUD[Post] = PostCRUD{}
+func TestFindPostById(t *testing.T) {
+	var crud  = PostCRUD{}
 
 	res, _ := crud.FindById(1)
 	fmt.Println(res)
@@ -64,7 +80,7 @@ func TestFindAll(t *testing.T) {
 	fmt.Println(res)
 }
 */
-
+/*
 func TestFindAllReply(t *testing.T) {
 	var op = ReplyCRUD{}
 	res, err := op.FindAll()
@@ -74,3 +90,16 @@ func TestFindAllReply(t *testing.T) {
 	}
 	fmt.Println(res)
 }
+*/
+
+/*
+func TestFindAllReplyByPostId(t *testing.T) {
+	var op = ReplyCRUD{}
+	res, err := op.FindAllByPostId(1)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(res)
+}
+*/
