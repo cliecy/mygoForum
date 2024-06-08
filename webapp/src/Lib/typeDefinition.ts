@@ -32,7 +32,7 @@ export interface ReplyRequest {
     PostId: number
     AuthorId: number;
     Content: string;
-    ReplyTo: number;
+    ReplyTo: number |undefined;
 }
 
 
@@ -59,15 +59,6 @@ export interface PostRequest {
     AuthorId: number;
     Content: string;
 }
-
-export interface MakePostType {
-    UserId: number;
-    Content: string;
-    Title: string;
-    PostTime: string;
-    // IsLocked: boolean;
-}
-
 export interface Reply {
     Content: string;
     Floor: number;

@@ -16,7 +16,7 @@ const mp = async (values: PostFieldType) => {
     const shareid = localStorage.getItem("currentShareid")
     if(shareid){
       await MakeReply(
-        {UserId:userid,Content:values.content,PostTime:formatDatefordate(now),ShareId:parseInt(shareid,10)}
+        {AuthorId:userid,Content:values.content,PostId:parseInt(shareid,10),ReplyTo:undefined}
       )
     }
     else{
@@ -35,7 +35,7 @@ interface MakeReplyProps{
 
 const MakeReplyComponent :React.FC<MakeReplyProps>=({shareid}) => {
   const [form] = Form.useForm();
-  if (storageUtils.getUser() == false) return <></>;
+  if (!storageUtils.getUser()) return <></>;
   return (
     <>
       <Form

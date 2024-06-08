@@ -3,15 +3,21 @@ import { Button, Space, Tag } from "antd";
 import urequest from "umi-request";
 import {PostGet, ReplyGet} from "../../Lib/typeDefinition";
 import {useEffect} from "react";
+import axios from 'axios';
 
 var PageShareId:number;
 
+
 async function GetData(params = {} as Record<string, any>) {
-    return urequest<{
-        data: ReplyGet[];
-    }>(`http://localhost:8000/posts/${PageShareId}`, {
-        params,
-    });
+    try {
+        const response = await axios.get<{ data: ReplyGet[] }>(`http://localhost:8000/posts/${PageShareId}`, {
+            params,
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
 }
 
 export type ReplyProps = {
@@ -36,21 +42,17 @@ const ReplyList:React.FC<ReplyProps> = ({ShareId}) => {
             showActions="hover"
             metas={{
                 title: {
-                    dataIndex: "",
+                    dataIndex: "AuthorName",
                     title: "用户",
                 },
                 avatar: {
-                    dataIndex: "avatar",
+                    dataIndex: "Avatar",
                     search: false,
                 },
                 description: {
-                    dataIndex: "title",
+                    dataIndex: "Content",
                     search: false,
                 },
-                subTitle:{
-                    dataIndex:"",
-                    search:false,
-                }
             }}
         />
     );

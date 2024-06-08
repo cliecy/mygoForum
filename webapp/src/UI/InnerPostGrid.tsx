@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Col, Row } from 'antd';
 import { ShareAndReplies, Reply } from "../Lib/typeDefinition";
-import MPagination from './MPagination';
 import { GetUserDataById } from '../Lib/lib';
 import { useState } from 'react';
 interface InnerPostGridProps {
@@ -58,7 +57,6 @@ const InnerPostGrid: React.FC<InnerPostGridProps> = ({ post, currentPage, pageSi
                         </Row>)
            
     })}
-                <MPagination total={post.replies.length} pageSize={pageSize} onPageChange={onPageChange} onShowSizeChange={onShowSizeChange} />
             </>
         );
     }

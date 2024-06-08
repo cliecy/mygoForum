@@ -1,58 +1,22 @@
-import { Post, ShareAndReplies, HTTPStatus, MakePostType, Reply, MakeReplyType, User, GetUserType } from './typeDefinition';
+import {
+    Post,
+    ShareAndReplies,
+    HTTPStatus,
+    Reply,
+    MakeReplyType,
+    User,
+    GetUserType,
+    PostRequest, ReplyRequest
+} from './typeDefinition';
 import axios from "axios";
 import { FieldType } from "../Pages/Login";
 import storageUtils from "./storageUtils";
 import { RegisterFieldType } from "../Pages/Register";
-import Title from 'antd/es/skeleton/Title';
 
-
-export async function GetPostPage(shareId: number): Promise<ShareAndReplies> {
-    // 发送 GET 请求特定 ID 的帖子
-    let share: ShareAndReplies = { share: [], replies: [] };
-    const myaxios = axios.create()
-    myaxios.defaults.timeout = 10000
-    try {
-        await myaxios.get(`http://127.0.0.1:8000/shares/${shareId}`).then(function (response) {
-            console.log(response);
-            share = response.data;
-        }).catch(function (error) {
-            console.log(error);
-        });
-    }
-    catch {
-        console.log("ERRORS BUT NOT AXIOS ERROR")
-    }
-    console.log(share)
-    return share
-}
-
-
-export async function GetAllPost(): Promise<Post[]> {
-    // 发送 POST 请求
-    // 为给定 ID 的 user 创建请求
-    let myposts: Post[] = [];
-    let myresponse;
-
-    try {
-        await axios.get('http://127.0.0.1:8000/shares').then(function (response) {
-            console.log(response);
-            myresponse = response
-            myposts = myresponse.data;
-        }).catch(function (error) {
-            console.log(error);
-        });
-    }
-    catch {
-        console.log("ERRORS BUT NOT AXIOS ERROR")
-    }
-    console.log(myposts)
-    return myposts
-}
-
-export async function MakePost(post: MakePostType): Promise<HTTPStatus> {
+export async function MakePost(post: PostRequest): Promise<HTTPStatus> {
     let statusNum: number = 0;
     try {
-        await axios.post("http://127.0.0.1:8000/shares", post)
+        await axios.post("http://127.0.0.1:8000/posts", post)
             .then(function (response) {
                 console.log(response);
                 window.location.reload()
@@ -67,10 +31,10 @@ export async function MakePost(post: MakePostType): Promise<HTTPStatus> {
         return { status: statusNum }
     }
 }
-export async function MakeReply(reply: MakeReplyType): Promise<HTTPStatus> {
+export async function MakeReply(reply: ReplyRequest): Promise<HTTPStatus> {
     let statusNum: number = 0;
     try {
-        await axios.post(`http://127.0.0.1:8000/shares/${reply.ShareId}`,reply)
+        await axios.post(`http://127.0.0.1:8000/posts/${reply.PostId}`,reply)
             .then(function (response) {
                 console.log(response);
                 window.location.reload()
