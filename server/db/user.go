@@ -90,9 +90,13 @@ func (crud UserCRUD) DeleteUserbyName(name string) error {
 }
 
 func (crud UserCRUD) GetAllUser() ([]User, error) {
-	db, err := crud.GetDatabaseInstance()
+	db, err := GetDatabaseInstance()
 	if err != nil {
 		return nil, err
 	}
+
+	var res []User
+	result := db.Find(&res)
+	return res, result.Error
 
 }
