@@ -2,6 +2,7 @@ import { ProList } from "@ant-design/pro-components";
 import mrequest from "umi-request";
 import {PostGet, ReplyGet} from "../../Lib/typeDefinition";
 import {useEffect} from "react";
+import { ipAddress } from "../../App";
 
 var PageShareId:number;
 
@@ -9,7 +10,7 @@ var PageShareId:number;
 
 export async function GetReplyData(params = {} as Record<string, any>) {
     const Response = await mrequest<{ data: ReplyGet[] }>(
-      `http://34.85.121.30:8000/posts/${PageShareId}`,
+      `http://${ipAddress}:8000/posts/${PageShareId}`,
       {
         params,
       }
