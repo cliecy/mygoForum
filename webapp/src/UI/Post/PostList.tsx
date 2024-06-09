@@ -2,6 +2,7 @@ import { ProList } from "@ant-design/pro-components";
 import { PostGet, ReplyGet } from "../../Lib/typeDefinition";
 import mrequest from "umi-request";
 import { NavLink } from "react-router-dom";
+import { ipAddress } from "../../App";
 
 
 const options: Intl.DateTimeFormatOptions = {
@@ -19,7 +20,7 @@ export async function GetPostData(params = {} as Record<string, any>) {
   console.log("Get Data Once");
   console.log(params);
   const Response = await mrequest<{ data: PostGet[] }>(
-    "http://127.0.0.1:8000/posts",
+    `http://${ipAddress}:8000/posts`,
     {
       params,
     }
