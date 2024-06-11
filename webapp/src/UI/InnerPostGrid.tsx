@@ -3,14 +3,16 @@ import { Col, Row } from 'antd';
 import { ShareAndReplies, Reply } from "../Lib/typeDefinition";
 import { GetUserDataById } from '../Lib/lib';
 import { useState } from 'react';
+//定义组件的属性类型
 interface InnerPostGridProps {
-    post: ShareAndReplies;
-    currentPage: number;
-    pageSize: number;
-    onPageChange: (page: number) => void;
-    onShowSizeChange: (current: number, pageSize: number) => void;
+    post: ShareAndReplies;//主贴和回复
+    currentPage: number;//当前页码
+    pageSize: number;//每页帖子数
+    //下面两个是回调函数
+    onPageChange: (page: number) => void;//处理分页
+    onShowSizeChange: (current: number, pageSize: number) => void;//处理页面大小
 }
-
+//组件定义
 const InnerPostGrid: React.FC<InnerPostGridProps> = ({ post, currentPage, pageSize, onPageChange, onShowSizeChange }) => {
     const startIndex = (currentPage - 1) * pageSize;
     const mainPost = post.share[0]

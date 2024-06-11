@@ -9,5 +9,5 @@ const reportWebVitals = onPerfEntry => {
     });
   }
 };
-
+//收集和报告webvitals性能指标
 export default reportWebVitals;

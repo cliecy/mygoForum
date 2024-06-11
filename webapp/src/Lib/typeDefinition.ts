@@ -1,3 +1,4 @@
+//各种格式的规定，和后端对接的接口
 export interface Post {
     ShareId: number | undefined;
     UserId: number;
