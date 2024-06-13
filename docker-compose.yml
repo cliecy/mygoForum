@@ -1,12 +1,11 @@
+version: '3'
+
 services:
   frontend:
     build:
       context: .
       dockerfile: Dockerfile.frontend
     container_name: frontend
-    working_dir: /webapp
-    volumes:
-      - ./webapp:/webapp
     ports:
       - "80:5173"
     environment:
@@ -17,9 +16,6 @@ services:
       context: .
       dockerfile: Dockerfile.backend
     container_name: backend
-    working_dir: /server
-    volumes:
-      - ./server:/server
     ports:
       - "8000:8000"
     depends_on:
@@ -34,4 +30,4 @@ services:
       POSTGRES_USER: apple
       POSTGRES_DB: postgres
     volumes:
-      - ./init-db.sql:/docker-entrypoint-initdb.d/init.sql # 确保 init-db.sql 文件在项目根目录下
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init.sql

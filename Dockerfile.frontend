@@ -1,6 +1,16 @@
-# Dockerfile for Frontend
-FROM node:16.20-alpine3.18
+FROM node:latest
+
 WORKDIR /webapp
-# COPY webapp /webapp
+
+# 复制 webapp 目录中的其他文件到容器中
+COPY webapp /webapp
+
+# 安装依赖
 RUN npm install
-CMD ["npm", "run","dev"]
+
+
+# 暴露应用端口
+EXPOSE 5173
+
+# 启动应用
+CMD ["npm", "run", "dev","--","--host"]

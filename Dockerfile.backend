@@ -1,9 +1,22 @@
-# Dockerfile for Backend
+# 第一阶段：构建阶段
 FROM golang:1.22.1-alpine3.18 AS builder
+
 WORKDIR /server
-# COPY server /server
+
+# 复制项目源代码到容器中
+COPY server ./
+
+# 下载依赖
+RUN go mod download
+
+# 构建二进制文件
 RUN go build -o /go/bin/server
 
+# 第二阶段：运行阶段
 FROM alpine:3.18.6
+
+# 从构建阶段复制构建好的二进制文件
 COPY --from=builder /go/bin/server /go/bin/server
+
+# 运行构建好的二进制文件
 CMD ["/go/bin/server"]
