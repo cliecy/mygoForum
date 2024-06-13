@@ -7,7 +7,7 @@ import { ipAddress } from "../../App";
 var PageShareId:number;
 
 
-
+//获取reply信息，和post差不多
 export async function GetReplyData(params = {} as Record<string, any>) {
     const Response = await mrequest<{ data: ReplyGet[] }>(
       `http://${ipAddress}:8000/posts/${PageShareId}`,
@@ -25,17 +25,19 @@ export async function GetReplyData(params = {} as Record<string, any>) {
     console.log(ResponseData);
     return ResponseData;
   }
-
+//格式
 export type ReplyProps = {
     ShareId:number;
     Title:string;
 };
 
 const ReplyList:React.FC<ReplyProps> = ({ShareId,Title}) => {
+    //useEffect 是一个 React 钩子，在组件渲染后执行。这里，当 ShareId 发生变化时，PageShareId 会被更新为新的 ShareId
     useEffect(() => {
         PageShareId = ShareId
     }, [ShareId]);
     return (
+        //这部分和post差不多，不写了，你妈的
         <ProList<ReplyGet>
             search={{
                 filterType: "light",

@@ -7,13 +7,15 @@ import { formatDatefordate } from "../Lib/lib";
 export type PostFieldType = {
   content: string;
 };
-
+//写前端这b人我真是草了，reply也叫mp是吧，你妈的
+//这里是处理回复的业务逻辑
 const mp = async (values: PostFieldType) => {
+  //这部分和post差不多
   let now = new Date()
   let userid:number = parseInt(storageUtils.getUserId(),10)
   if(storageUtils.getUser()){
     const shareid = localStorage.getItem("currentShareid")
-    if(shareid){
+    if(shareid){//帖子存在就能发回复，不能就报错
       await MakeReply(
         {AuthorId:userid,Content:values.content,PostId:parseInt(shareid,10),ReplyTo:undefined}
       )
@@ -31,7 +33,7 @@ const mp = async (values: PostFieldType) => {
 interface MakeReplyProps{
   shareid:number;
 }
-
+//和post差不多，不写了
 const MakeReplyComponent :React.FC<MakeReplyProps>=({shareid}) => {
   const [form] = Form.useForm();
   if (!storageUtils.getUser()) return <></>;

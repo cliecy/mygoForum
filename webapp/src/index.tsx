@@ -7,10 +7,11 @@ import { createRoot } from "react-dom/client";
 import PostPage from "./Pages/PostPage";
 import App from "./App";
 import React from "react";
+//路由对象，对应看帖，发帖，注册和登录
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <App />,//app组件用于根路径
     children: [
       {
         path: "/",
@@ -29,9 +30,10 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
+//获取html根元素，找不到就error
 const rootElement = document.getElementById("root");
 if (!rootElement) throw new Error("Failed to find the root element");
+// 创建根元素并渲染
 const root = createRoot(rootElement);
 root.render(<React.StrictMode>
   <RouterProvider router={router} />

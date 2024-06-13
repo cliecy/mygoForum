@@ -6,8 +6,9 @@ import MakePostComponent from '../UI/MakePostComponent';
 const Home: React.FC = () => { //主界面
   return (
     <>
-      <PostGrid></PostGrid>
-    <MakePostComponent></MakePostComponent>
+    {/* 栅格和post组件 */}
+      <PostGrid></PostGrid> 
+    <MakePostComponent></MakePostComponent>//
     </>
 
   );

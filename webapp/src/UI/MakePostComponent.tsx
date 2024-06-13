@@ -7,10 +7,11 @@ export type PostFieldType = {
   title: string;
 };
 
-
+//发帖业务逻辑，写前端的命的甚鸟名
 const mp = async (values: PostFieldType) => {
-  let now = new Date()
-  let userid:number = parseInt(storageUtils.getUserId(),10)
+  let now = new Date()//获取时间
+  let userid:number = parseInt(storageUtils.getUserId(),10)//获取id
+  //get到用户就发，get不到就error，然后重新加载页面
   if(storageUtils.getUser()){
     await MakePost(
       {AuthorId:userid,Content:values.content,Title:values.title}
@@ -22,12 +23,13 @@ const mp = async (values: PostFieldType) => {
     window.location.reload()
   }
 };
-
+//发帖组件
 const MakePostComponent = () => {
   const [form] = Form.useForm();
   if (storageUtils.getUser() == false) return <></>;
   return (
     <>
+    {/* 格式 */}
       <Form
         form={form}
         style={{ paddingBlock: 32 }}

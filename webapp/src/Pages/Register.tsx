@@ -4,29 +4,30 @@ import { FieldType } from './Login';
 import { RegisterFunc } from '../Lib/lib';
 import { Redirect } from './Login';
 import storageUtils from '../Lib/storageUtils';
+//给组件传输的参数
 export type RegisterFieldType = {
     userName?: string;
     password?: string;
     remember?: boolean;
 }
-
+//成功唤醒登陆函数
 const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     await RegisterFunc(values)
 
 };
-
+//失败控制台打印失败信息
 const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
     console.log('Failed:', errorInfo);
 };
-
-const Login: React.FC = () => (
+//和Login差不多，不写了 
+const Register: React.FC = () => (
     <>
         <Form
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         style={{ maxWidth: 600 }}
-        initialValues={{ remember: true }}
+        initialValues={{ remember: true }}//设置表单字段的初始值（记住我复选框默认是选中的）。
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
@@ -46,19 +47,21 @@ const Login: React.FC = () => (
             rules={[{ required: true, message: 'Please input your password!' }]}
         >
             <Input.Password />
+        {/* 密码确认 */}
         </Form.Item>
         <Form.Item
             name="confirm"
             label="Confirm Password"
             dependencies={['password']}
             hasFeedback
+            // 两个密码不一样就错误
             rules={[
                 {
                     required: true,
                     message: 'Please confirm your password!',
                 },
-                ({ getFieldValue }) => ({
-                    validator(_, value) {
+                ({ getFieldValue }) => ({//不一样则reject
+                    validator(_, value) 
                         if (!value || getFieldValue('password') === value) {
                             return Promise.resolve();
                         }
@@ -69,7 +72,7 @@ const Login: React.FC = () => (
         >
             <Input.Password />
         </Form.Item>
-
+        {/* 记住 */}
         <Form.Item<FieldType>
             name="remember"
             valuePropName="checked"
@@ -77,7 +80,7 @@ const Login: React.FC = () => (
         >
             <Checkbox>Remember me</Checkbox>
         </Form.Item>
-
+        {/* 提交 */}
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit">
                 Submit
@@ -89,4 +92,4 @@ const Login: React.FC = () => (
 
 );
 
-export default Login;
+export default Register;

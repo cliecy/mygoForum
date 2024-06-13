@@ -4,7 +4,7 @@ import mrequest from "umi-request";
 import { NavLink } from "react-router-dom";
 import { ipAddress } from "../../App";
 
-
+//规定时间格式
 const options: Intl.DateTimeFormatOptions = {
   year: 'numeric',
   month: 'numeric', // 使用 'numeric' 或 'long' 根据你的需要
@@ -15,7 +15,7 @@ const options: Intl.DateTimeFormatOptions = {
   hour12: false // 使用 24 小时制，如果想使用 12 小时制可设为 true
 };
 
-
+//获得帖子信息
 export async function GetPostData(params = {} as Record<string, any>) {
   console.log("Get Data Once");
   console.log(params);
@@ -25,6 +25,7 @@ export async function GetPostData(params = {} as Record<string, any>) {
       params,
     }
   );
+  //定义pagesize和response格式
   const pageSize: number = params.pageSize;
   const ResponseData = {
     data: Response.data,
@@ -37,7 +38,9 @@ export async function GetPostData(params = {} as Record<string, any>) {
 }
 const PostList = () => {
   return (
+    //组件配置
     <ProList<PostGet>
+      // 搜索栏
       search={{
         filterType: "light",
       }}
@@ -45,21 +48,26 @@ const PostList = () => {
       headerTitle="帖子"
       request={GetPostData}
       showActions="hover"
+      //meta配置
       metas={{
+        //配置标题
         title: {
           dataIndex: "Title",
           render: (_, row) => {
             return <NavLink to={`/PostPage/${row.ID}/${row.Title}`}>{row.Title}</NavLink>;
           },
         },
+        //配置头像
         avatar: {
           dataIndex: "Avatar",
           search: false,
         },
+        //配置描述
         description: {
           dataIndex: "Content",
           search: false,
         },
+        //配置子标题
         subTitle: {
           dataIndex: "AuthorName",
           render: (_, row) => {
@@ -69,7 +77,7 @@ const PostList = () => {
         },
       }}
       pagination={{
-        pageSize: 5,
+        pageSize: 5, //每页5篇帖子
       }}
     />
   );
