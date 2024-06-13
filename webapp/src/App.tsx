@@ -1,7 +1,7 @@
 import MHeader from "./UI/MHeader";
 import Layout from "antd/es/layout/layout";
 
-export const ipAddress = "mygoforum.net"
+export const ipAddress = "localhost"
 
 const App = () => {
   

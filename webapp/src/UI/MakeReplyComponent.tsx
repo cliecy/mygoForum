@@ -1,16 +1,14 @@
 import React from "react";
-import { Button, Flex, Form, Input, Select } from "antd";
+import { Button, Flex, Form, Input } from "antd";
 import storageUtils from "../Lib/storageUtils";
-import { GetUserIdByUserName, MakePost, MakeReply } from "../Lib/lib";
-import { formatDatefordate } from "../Lib/lib";
+import { MakeReply } from "../Lib/lib";
 
 export type PostFieldType = {
   content: string;
 };
 
 const mp = async (values: PostFieldType) => {
-  let now = new Date()
-  let userid:number = parseInt(storageUtils.getUserId(),10)
+  const userid:number = parseInt(storageUtils.getUserId(),10)
   if(storageUtils.getUser()){
     const shareid = localStorage.getItem("currentShareid")
     if(shareid){
@@ -33,6 +31,7 @@ interface MakeReplyProps{
 }
 
 const MakeReplyComponent :React.FC<MakeReplyProps>=({shareid}) => {
+  console.log(shareid)
   const [form] = Form.useForm();
   if (!storageUtils.getUser()) return <></>;
   return (

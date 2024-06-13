@@ -1,5 +1,5 @@
 import { ProList } from "@ant-design/pro-components";
-import { PostGet, ReplyGet } from "../../Lib/typeDefinition";
+import { PostGet } from "../../Lib/typeDefinition";
 import mrequest from "umi-request";
 import { NavLink } from "react-router-dom";
 import { ipAddress } from "../../App";

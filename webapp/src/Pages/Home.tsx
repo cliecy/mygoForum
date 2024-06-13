@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PostGrid from '../UI/Post/PostGrid';
-import { Post } from '../Lib/typeDefinition';
 import MakePostComponent from '../UI/MakePostComponent';
 
 const Home: React.FC = () => {

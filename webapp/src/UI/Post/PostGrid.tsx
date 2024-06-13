@@ -1,5 +1,4 @@
 import React from 'react';
-import { Post } from "../../Lib/typeDefinition";
 import PostList from './PostList';
 
 

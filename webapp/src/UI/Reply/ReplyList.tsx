@@ -1,6 +1,6 @@
 import { ProList } from "@ant-design/pro-components";
 import mrequest from "umi-request";
-import {PostGet, ReplyGet} from "../../Lib/typeDefinition";
+import {ReplyGet} from "../../Lib/typeDefinition";
 import {useEffect} from "react";
 import { ipAddress } from "../../App";
 

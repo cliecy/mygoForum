@@ -1,10 +1,5 @@
 import {
-    Post,
-    ShareAndReplies,
     HTTPStatus,
-    Reply,
-    MakeReplyType,
-    User,
     GetUserType,
     PostRequest, ReplyRequest
 } from './typeDefinition';
