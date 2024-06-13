@@ -2,11 +2,10 @@ package main
 
 import (
 	"fmt"
-	"mygoForum/router"
-	"net/http"
-
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
+	"mygoForum/router"
+	"net/http"
 )
 
 func CORSMiddleware() gin.HandlerFunc {
