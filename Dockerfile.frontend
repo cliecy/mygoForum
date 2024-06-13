@@ -1,6 +1,6 @@
 # Dockerfile for Frontend
 FROM node:16.20-alpine3.18
 WORKDIR /webapp
-COPY webapp /webapp
+# COPY webapp /webapp
 RUN npm install
-CMD ["npm", "start"]
+CMD ["npm", "run","dev"]

@@ -1,7 +1,7 @@
 # Dockerfile for Backend
 FROM golang:1.22.1-alpine3.18 AS builder
 WORKDIR /server
-COPY server /server
+# COPY server /server
 RUN go build -o /go/bin/server
 
 FROM alpine:3.18.6
