@@ -1,5 +1,5 @@
 import {useParams} from "react-router";
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import MakeReplyComponent from "../UI/MakeReplyComponent";
 import ReplyList from "../UI/Reply/ReplyList";
 

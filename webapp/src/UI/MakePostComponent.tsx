@@ -1,7 +1,6 @@
-import React from "react";
-import { Button, Flex, Form, Input, Select } from "antd";
+import { Button, Flex, Form, Input } from "antd";
 import storageUtils from "../Lib/storageUtils";
-import { GetUserIdByUserName, MakePost } from "../Lib/lib";
+import { MakePost } from "../Lib/lib";
 export type PostFieldType = {
   content: string;
   title: string;
@@ -9,8 +8,7 @@ export type PostFieldType = {
 
 
 const mp = async (values: PostFieldType) => {
-  let now = new Date()
-  let userid:number = parseInt(storageUtils.getUserId(),10)
+  const userid:number = parseInt(storageUtils.getUserId(),10)
   if(storageUtils.getUser()){
     await MakePost(
       {AuthorId:userid,Content:values.content,Title:values.title}

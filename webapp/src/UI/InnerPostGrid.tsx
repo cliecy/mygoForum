@@ -7,14 +7,13 @@ interface InnerPostGridProps {
     post: ShareAndReplies;
     currentPage: number;
     pageSize: number;
-    onPageChange: (page: number) => void;
-    onShowSizeChange: (current: number, pageSize: number) => void;
 }
 
-const InnerPostGrid: React.FC<InnerPostGridProps> = ({ post, currentPage, pageSize, onPageChange, onShowSizeChange }) => {
+const InnerPostGrid: React.FC<InnerPostGridProps> = ({ post, currentPage, pageSize}) => {
     const startIndex = (currentPage - 1) * pageSize;
     const mainPost = post.share[0]
     const repliesInCurrentPage: Reply[] = post.replies.slice(startIndex, startIndex + pageSize)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [repliesWithUserData, setRepliesWithUserData] = useState<Reply[]>([]);
 
 
@@ -34,7 +33,7 @@ const InnerPostGrid: React.FC<InnerPostGridProps> = ({ post, currentPage, pageSi
         fetchUserData();
     }, [post.replies, currentPage, pageSize]);
 
-    console.log(post)
+    console.log(repliesWithUserData)
     if(!mainPost)
         return <div>loading</div>
     else{

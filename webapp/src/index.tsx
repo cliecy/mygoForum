@@ -5,7 +5,7 @@ import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import { createRoot } from "react-dom/client";
 import PostPage from "./Pages/PostPage";
-import App from "./App";
+import App from "./App.tsx";
 import React from "react";
 const router = createBrowserRouter([
   {
